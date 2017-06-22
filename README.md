@@ -1,6 +1,6 @@
 # 技术文档
-* [linux常用基本命令](https://github.com/SunJiess/Database-Course-Design/blob/master/Technical%20documentation/linux%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4.md)
-* [vim常用基本命令](https://github.com/SunJiess/Database-Course-Design/blob/master/Technical%20documentation/vim%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4.md)
+* [linux常用基本命令](https://github.com/SunJiess/DbCD/blob/master/Technical%20documentation/git%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4.md)
+* [vim常用基本命令](/Technical documentation/linux常用基本命令.md)
 * [git常用基本命令](https://github.com/SunJiess/Database-Course-Design/blob/master/Technical%20documentation/git%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4.md)
 # 课程设计
 * [学生成绩管理系统](./stu.md)
