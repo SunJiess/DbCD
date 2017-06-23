@@ -43,7 +43,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "delete from information where stuId = %d", atoi(stuId));
+	sprintf(sql, "delete from score where stuId = %d", atoi(stuId));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
@@ -52,7 +52,7 @@ int cgiMain()
 	}
 
 
-	fprintf(cgiOut, "delete information ok!\n");
+	fprintf(cgiOut, "delete score ok!\n");
 	mysql_close(db);
 
 	return 0;

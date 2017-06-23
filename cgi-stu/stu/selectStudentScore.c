@@ -24,8 +24,8 @@ int cgiMain()
   FILE * fd;
 	char name[32] = "\0";
 	int status = 0;
-
 	char ch;
+
 	if(!(fd = fopen(headname, "r"))){
 		fprintf(cgiOut, "Cannot open file, %s\n", headname);
 		return -1;
@@ -37,7 +37,6 @@ int cgiMain()
 		ch = fgetc(fd);
 	}
 	fclose(fd);
-
 
 	status = cgiFormString("name",  name, 32);
 	if (status != cgiFormSuccess)
@@ -52,11 +51,11 @@ int cgiMain()
 
 	if (name[0] == '*')
 	{
-		sprintf(sql, "select * from information");
+		sprintf(sql, "select * from score");
 	}
 	else
 	{
-		sprintf(sql, "select * from information where name = '%s'", name);
+		sprintf(sql, "select * from score where name = '%s'", name);
 	}
 
 

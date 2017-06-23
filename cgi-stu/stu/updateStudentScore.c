@@ -9,9 +9,18 @@ int cgiMain()
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
+	char name[32] = "\0";
 	char stuId[32] = "\0";
+  char class[32] = "\0";
+	char core[16] = "\0";
 	int status = 0;
 
+	status = cgiFormString("name",  name, 32);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get name error!\n");
+		return 1;
+	}
 
 	status = cgiFormString("stuId",  stuId, 32);
 	if (status != cgiFormSuccess)
@@ -20,6 +29,19 @@ int cgiMain()
 		return 1;
 	}
 
+	status = cgiFormString("class",  class, 32);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get class error!\n");
+		return 1;
+	}
+
+	status = cgiFormString("core",  core, 16);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get core error!\n");
+		return 1;
+	}
 
 	int ret;
 	char sql[128] = "\0";
@@ -43,7 +65,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "delete from information where stuId = %d", atoi(stuId));
+	sprintf(sql, "update score set name='%s', class='%s' ,core= %d where stuId = %d ", name, class, atoi(core) ,atoi(stuId));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
@@ -52,8 +74,8 @@ int cgiMain()
 	}
 
 
-	fprintf(cgiOut, "delete information ok!\n");
-	mysql_close(db);
 
+	fprintf(cgiOut, "update studentCore information ok!\n");
+	mysql_close(db);
 	return 0;
 }
