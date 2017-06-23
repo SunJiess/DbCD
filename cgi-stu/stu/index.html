@@ -41,14 +41,13 @@
     <h1 class="header text-center">河北地质大学学生信息管理系统Login</h1>
     <div class="container">
         <div class="operation row">
-            <div class="text-center col-md-4 col-sm-8">
+            <div class="text-center col-md-3 col-sm-6">
                 <button>学生登陆</button>
             </div>
-            <div class="text-center col-md-4 col-sm-8">
+            <div class="text-center col-md-3 col-sm-6">
                 <button>教师登陆</button>
             </div>
         </div>
-      </div>
 
       <ul class="forms">
           <li class="show">
@@ -96,5 +95,23 @@
           </li>
           <!--教师-->
         </ul>
-</body>
+    </div>
+    <script src="./public/js/jquery-3.0.0.min.js"></script>
+    <script src="./public/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+      var btns = $(".operation button");
+      var lis = $(".forms li");
+        btns.addClass("btn btn-primary btn-lg");
+
+        for (var i = 0; i < btns.length; i++){
+          btns.eq(i).click(i, function(event){
+            lis.eq(event.data).addClass("show").siblings().removeClass("show");
+          });
+        }
+
+    });
+    </script>
+  </body>
+
 </html>

@@ -4,34 +4,17 @@
 #include <mysql/mysql.h>
 #include "cgic.h"
 
-char * headname = "head.html";
-char * footname = "footer.html";
-
 int cgiMain()
 {
 
-	FILE * fd;
+	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 
 	char name[32] = "\0";
 	char age[16] = "\0";
 	char stuId[32] = "\0";
 	char sex[16] = "\0";
-	char Id[16] = "\0";
+
 	int status = 0;
-	char ch;
-
-	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
-	if(!(fd = fopen(headname, "r"))){
-		fprintf(cgiOut, "Cannot open file, %s\n", headname);
-		return -1;
-	}
-	ch = fgetc(fd);
-
-	while(ch != EOF){
-		fprintf(cgiOut, "%c", ch);
-		ch = fgetc(fd);
-	}
-	fclose(fd);
 
 	status = cgiFormString("name",  name, 32);
 	if (status != cgiFormSuccess)
@@ -47,24 +30,17 @@ int cgiMain()
 		return 1;
 	}
 
-	status = cgiFormString("stuId",  stuId, 32);
+	status = cgiFormString("stuId",  stuId, 16);
 	if (status != cgiFormSuccess)
 	{
 		fprintf(cgiOut, "get stuId error!\n");
 		return 1;
 	}
 
-	status = cgiFormString("sex",  sex, 16);
+	status = cgiFormString("sex",  sex, 32);
 	if (status != cgiFormSuccess)
 	{
 		fprintf(cgiOut, "get sex error!\n");
-		return 1;
-	}
-
-	status = cgiFormString("Id",  Id, 16);
-	if (status != cgiFormSuccess)
-	{
-		fprintf(cgiOut, "get Id error!\n");
 		return 1;
 	}
 
@@ -91,30 +67,15 @@ int cgiMain()
 		return -1;
 	}
 
-
-
-	strcpy(sql, "create table information(stuId int not null primary key, name varchar(20) not null, age int not null, sex varchar(10) not null,Id int(10) not null )");
+	sprintf(sql, "update information set name='%s', sex='%s', age=%d , where stuId = %d ", name, sex, age, atoi(stuId));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
-		if (ret != 1)
-		{
-			fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
-			mysql_close(db);
-			return -1;
-		}
-	}
-
-
-
-	sprintf(sql, "insert into information values(%d, '%s', %d,'%s',%d)", atoi(stuId), name, atoi(age),sex,Id);
-	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
-	{
-		fprintf(cgiOut, "%s\n", mysql_error(db));
+		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
 		mysql_close(db);
 		return -1;
 	}
 
-	fprintf(cgiOut, "add student ok!\n");
+	fprintf(cgiOut, "update student information ok!\n");
 	mysql_close(db);
 	return 0;
 }
